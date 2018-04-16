@@ -16,4 +16,12 @@ return [
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
+    /* AuthController@login */ 
+    'jwtFailed' => 'Failed to login, please try again.',
+    
+    /* AuthController@logout */ 
+    'logout' => 'You have successfully logged out.',
+    'logoutError' => 'Failed to logout, please try again.',
+
+
 ];
