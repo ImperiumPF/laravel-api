@@ -27,7 +27,7 @@ class AuthController extends Controller
         ];
         $validator = Validator::make($credentials, $rules);
         if($validator->fails()) {
-            return response()->json(['success'=> false, 'error'=> $validator->messages()]);
+            return response()->json(['success'=> false, 'error'=> $validator->errors()->all()]);
         }
         $name = $request->name;
         $email = $request->email;
@@ -35,11 +35,11 @@ class AuthController extends Controller
         
         $user = User::create(['name' => $name, 'email' => $email, 'password' => Hash::make($password)]);
 
-        $verification_code = str_random(30); //Generate verification code
+        //Generate verification code
+        $verification_code = str_random(30); 
         
         DB::table('user_verifications')->insert(['user_id'=>$user->id,'token'=>$verification_code]);
         
-        //$subject = "Please verify your email address.";
         $subject = trans('mail.registerSubject');
         
         Mail::send('email.verify', ['name' => $name, 'verification_code' => $verification_code],
@@ -94,7 +94,7 @@ class AuthController extends Controller
         ];
         $validator = Validator::make($credentials, $rules);
         if($validator->fails()) {
-            return response()->json(['success'=> false, 'error'=> $validator->messages()]);
+            return response()->json(['success'=> false, 'error'=> $validator->errors()->all()]);
         }
         
         $credentials['is_verified'] = 1;
@@ -126,7 +126,7 @@ class AuthController extends Controller
             JWTAuth::invalidate($request->input('token'));
             return response()->json(['success' => true, 'message'=> trans('auth.logout')]);
         } catch (JWTException $e) {
-            // something went wrong whilst attempting to encode the token
+            // something went wrong when attempting to encode the token
             return response()->json(['success' => false, 'error' => trans('auth.logoutError')], 500);
         }
     }
