@@ -1,8 +1,8 @@
 <?php
 
-namespace Imperium\Http\Controllers;
+namespace App\Http\Controllers;
 
-use Imperium\User;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
 use JWTAuth, Validator, DB, Hash, Mail;
