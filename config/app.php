@@ -155,11 +155,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        Imperium\Providers\AppServiceProvider::class,
+        Imperium\Providers\AuthServiceProvider::class,
+        // Imperium\Providers\BroadcastServiceProvider::class,
+        Imperium\Providers\EventServiceProvider::class,
+        Imperium\Providers\RouteServiceProvider::class,
 
     ],
 
