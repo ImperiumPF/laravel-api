@@ -1,6 +1,6 @@
 <?php
 
-namespace Imperium;
+namespace Imperium\Models;
 
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
