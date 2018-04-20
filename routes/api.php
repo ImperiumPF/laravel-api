@@ -17,56 +17,60 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 }); 
 */
-/**
- * Prefix /v1/
- */
-Route::group(array('prefix' => 'v1'), function() {
+
+Route::group(array('domain' => 'api.imperiumpf.me'), function() {
 
     /**
-     * /v1/register
-     * Create an account
+     * Prefix /v1/
      */
-    Route::post('register', 'AuthController@register');
-
-    /**
-     * /v1/login
-     * Login to an account
-     */
-    Route::post('login', 'AuthController@login');
-
-    /**
-     * /v1/recover
-     * Recover an account
-     */
-    Route::post('recover', 'AuthController@recover');
-
-
-    /**
-     * Routes with authentication needed
-     */
-    Route::group(['middleware' => ['jwt.auth']], function() {
-        /**
-         * /v1/logout
-         * Logout from an account
-         */
-        Route::get('logout', 'AuthController@logout');
+    Route::group(array('prefix' => 'v1'), function() {
 
         /**
-         * 
+         * /v1/register
+         * Create an account
          */
-        Route::get('testeauth', function(){
-            return response()->json('Auth');
+        Route::post('register', 'AuthController@register');
+
+        /**
+         * /v1/login
+         * Login to an account
+         */
+        Route::post('login', 'AuthController@login');
+
+        /**
+         * /v1/recover
+         * Recover an account
+         */
+        Route::post('recover', 'AuthController@recover');
+
+
+        /**
+         * Routes with authentication needed
+         */
+        Route::group(['middleware' => ['jwt.auth']], function() {
+            /**
+             * /v1/logout
+             * Logout from an account
+             */
+            Route::get('logout', 'AuthController@logout');
+
+            /**
+             * 
+             */
+            Route::get('testeauth', function(){
+                return response()->json('Auth');
+            });
+
         });
 
-    });
 
-
-    /**
-     * Shop Routes
-     * /v1/shop/
-     */
-    Route::group(array('prefix' => 'shop'), function() {
-        //
+        /**
+         * Shop Routes
+         * /v1/shop/
+         */
+        Route::group(array('prefix' => 'shop'), function() {
+            //
+        });
     });
 });
 
