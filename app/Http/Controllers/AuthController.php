@@ -2,7 +2,7 @@
 
 namespace Imperium\Http\Controllers;
 
-use Imperium\User;
+use Imperium\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
 use JWTAuth, Validator, DB, Hash, Mail;
