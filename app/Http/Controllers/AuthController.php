@@ -154,4 +154,14 @@ class AuthController extends Controller
         }
         return response()->json(['success' => true, 'data'=> trans('mail.resetSent')]);
     }
+
+    /**
+     * Get the authenticated User
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function me()
+    {
+        return response()->json($this->guard()->user());
+    }
 }

@@ -14,11 +14,10 @@ use Illuminate\Http\Request;
 */
 
 
-//Route::domain(array('prefix' => 'v1'), function() {
 /**
  * Prefix /v1/
  */
-Route::group(['domain' => 'api.imperiumpf.me','prefix' => 'v1'], function() {
+Route::group(['domain' => env('APP_URL_API'), 'prefix' => 'v1'], function() {
 
     /**
      * /v1/register
