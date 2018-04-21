@@ -39,3 +39,8 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
     Route::resource('users', 'UsersController');
 });
 
+/**
+ * FB
+ */
+Route::get('/redirect', 'SocialAuthController@redirect');
+Route::get('/callback', 'SocialAuthController@callback');
