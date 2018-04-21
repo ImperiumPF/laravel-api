@@ -64,7 +64,7 @@ class AuthController extends Controller
             $user = User::find($check->user_id);
             if($user->is_verified == 1){
                 return response()->json([
-                    'success'=> true,
+                    'success'=> false,
                     'message'=> trans('mail.alVerified')
                 ]);
             }
@@ -163,5 +163,11 @@ class AuthController extends Controller
     public function me()
     {
         return response()->json($this->guard()->user());
+    }
+
+    public function test(Request $request)
+    {
+        $request->user()->authorizeRoles('Administrador');
+        return auth()->user();
     }
 }
