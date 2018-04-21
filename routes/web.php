@@ -11,6 +11,22 @@
 |
 */
 
+/**
+ * User verification route
+ */
+Route::get('user/verify/{verification_code}', 'AuthController@verifyUser');
+
+/**
+ * User password reset route
+ */
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.request');
+
+/**
+ * User password reset route
+ */
+Route::post('password/reset', 'Auth\ResetPasswordController@postReset')->name('password.reset');
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -18,3 +34,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
+    Route::resource('users', 'UsersController');
+});
+
