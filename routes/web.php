@@ -44,3 +44,6 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
  */
 Route::get('/redirect', 'SocialAuthController@redirect');
 Route::get('/callback', 'SocialAuthController@callback');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
