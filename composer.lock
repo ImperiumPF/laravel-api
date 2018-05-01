@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1ba5ea35c3a787aa119d37add813bd9a",
+    "content-hash": "f3dfa8449752598cc782559be91c00ba",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -633,59 +633,6 @@
                 }
             ],
             "time": "2015-04-20T18:58:01+00:00"
-        },
-        {
-            "name": "jeroennoten/laravel-adminlte",
-            "version": "v1.23.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jeroennoten/Laravel-AdminLTE.git",
-                "reference": "ff13c6d0c750d2d5667db01e617d8b21bcaab5b8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jeroennoten/Laravel-AdminLTE/zipball/ff13c6d0c750d2d5667db01e617d8b21bcaab5b8",
-                "reference": "ff13c6d0c750d2d5667db01e617d8b21bcaab5b8",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": "~5.1.12|~5.2.0|~5.3.0|~5.4.0|~5.5.0|~5.6.0",
-                "php": ">=5.5.9"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "JeroenNoten\\LaravelAdminLte\\ServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "JeroenNoten\\LaravelAdminLte\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jeroen Noten",
-                    "email": "jeroennoten@me.com"
-                }
-            ],
-            "description": "Easy AdminLTE integration with Laravel",
-            "keywords": [
-                "AdminLTE",
-                "admin",
-                "administrator",
-                "laravel"
-            ],
-            "time": "2018-02-07T22:22:38+00:00"
         },
         {
             "name": "laravel/framework",
@@ -2812,6 +2759,57 @@
             "time": "2017-11-27T11:13:29+00:00"
         },
         {
+            "name": "twbs/bootstrap",
+            "version": "v4.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/bootstrap.git",
+                "reference": "8a628b943cf31ca0a002c08af661a95772480225"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/8a628b943cf31ca0a002c08af661a95772480225",
+                "reference": "8a628b943cf31ca0a002c08af661a95772480225",
+                "shasum": ""
+            },
+            "replace": {
+                "twitter/bootstrap": "self.version"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jacob Thornton",
+                    "email": "jacobthornton@gmail.com"
+                },
+                {
+                    "name": "Mark Otto",
+                    "email": "markdotto@gmail.com"
+                }
+            ],
+            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
+            "homepage": "https://getbootstrap.com",
+            "keywords": [
+                "JS",
+                "css",
+                "framework",
+                "front-end",
+                "mobile-first",
+                "responsive",
+                "sass",
+                "web"
+            ],
+            "time": "2018-01-18T18:29:48+00:00"
+        },
+        {
             "name": "tymon/jwt-auth",
             "version": "1.0.0-rc.2",
             "source": {
@@ -3150,6 +3148,59 @@
                 "test"
             ],
             "time": "2016-01-20T08:20:44+00:00"
+        },
+        {
+            "name": "jeroennoten/laravel-adminlte",
+            "version": "v1.23.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jeroennoten/Laravel-AdminLTE.git",
+                "reference": "ff13c6d0c750d2d5667db01e617d8b21bcaab5b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jeroennoten/Laravel-AdminLTE/zipball/ff13c6d0c750d2d5667db01e617d8b21bcaab5b8",
+                "reference": "ff13c6d0c750d2d5667db01e617d8b21bcaab5b8",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "~5.1.12|~5.2.0|~5.3.0|~5.4.0|~5.5.0|~5.6.0",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "JeroenNoten\\LaravelAdminLte\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JeroenNoten\\LaravelAdminLte\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeroen Noten",
+                    "email": "jeroennoten@me.com"
+                }
+            ],
+            "description": "Easy AdminLTE integration with Laravel",
+            "keywords": [
+                "AdminLTE",
+                "admin",
+                "administrator",
+                "laravel"
+            ],
+            "time": "2018-02-07T22:22:38+00:00"
         },
         {
             "name": "mockery/mockery",

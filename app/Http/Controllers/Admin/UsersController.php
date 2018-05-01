@@ -2,6 +2,7 @@
 
 namespace Imperium\Http\Controllers;
 
+use Imperium\Models\Role;
 use Imperium\Models\User;
 use Illuminate\Http\Request;
 use Imperium\Http\Controllers\Controller;
@@ -20,7 +21,7 @@ class UsersController extends Controller
             'title' => 'Users Listing',
             'users' => $users,
         ];
-        return view('admin.users.users_list')->with($params);
+        return view('admin.users.index')->with($params);
     }
 
     /**
@@ -33,7 +34,7 @@ class UsersController extends Controller
         $params = [
             'title' => 'Create User',
         ];
-        return view('admin.users.users_create')->with($params);
+        return view('admin.users.create')->with($params);
     }
 
     /**
@@ -72,7 +73,7 @@ class UsersController extends Controller
                 'title' => 'Delete User',
                 'user' => $user,
             ];
-            return view('admin.users.users_delete')->with($params);
+            return view('admin.users.delete')->with($params);
         }
         catch (ModelNotFoundException $ex) 
         {
@@ -98,7 +99,7 @@ class UsersController extends Controller
                 'title' => 'Edit User',
                 'user' => $user,
             ];
-            return view('admin.users.users_edit')->with($params);
+            return view('admin.users.edit')->with($params);
         }
         catch (ModelNotFoundException $ex) 
         {
@@ -127,7 +128,7 @@ class UsersController extends Controller
             ]);
             $user->email = $request->input('email');
             $user->save();
-            return redirect()->route('users.index')->with('success', "The user <strong>$user->name</strong> has successfully been updated.");
+            return redirect()->route('admin.users.index')->with('success', "The user <strong>$user->name</strong> has successfully been updated.");
         }
         catch (ModelNotFoundException $ex) 
         {
@@ -150,7 +151,7 @@ class UsersController extends Controller
         {
             $user = User::findOrFail($id);
             $user->delete();
-            return redirect()->route('users.index')->with('success', "The user <strong>$user->name</strong> has successfully been archived.");
+            return redirect()->route('admin.users.index')->with('success', "The user <strong>$user->name</strong> has successfully been archived.");
         }
         catch (ModelNotFoundException $ex) 
         {

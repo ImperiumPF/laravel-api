@@ -35,15 +35,19 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
+//Route::group(['prefix' => 'backend','middleware' => ['role:Administrador']],function(){
+Route::group(['prefix' => 'backend'],function(){
     Route::resource('users', 'UsersController');
+    //Route::resource('roles','RoleController');
 });
 
 /**
- * FB
+ * Socialite
  */
-Route::get('/redirect', 'SocialAuthController@redirect');
-Route::get('/callback', 'SocialAuthController@callback');
-Auth::routes();
+Route::get('/login/{social}','Auth\LoginController@socialLogin')
+        ->where('social','facebook|google');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/login/{social}/callback','Auth\LoginController@handleProviderCallback')
+        ->where('social','facebook|google');
+
+Route::get('/backend', 'HomeController@admin')->name('index');

@@ -113,7 +113,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Log out
+     * API Logout
      * Invalidate the token, so user cannot use it anymore
      * They have to relogin to get a new token
      *

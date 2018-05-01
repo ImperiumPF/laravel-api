@@ -3,7 +3,6 @@
 namespace Imperium\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException as Unauthorized;
 
 class HomeController extends Controller
 {
@@ -22,9 +21,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $request->user()->authorizeRoles(['Administrador', 'Patrocinador']);
         return view('home');
+    }
+
+    public function admin()
+    {
+        return view('admin.index');
     }
 }

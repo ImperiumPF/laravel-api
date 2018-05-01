@@ -4,6 +4,7 @@ namespace Imperium\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use DB;
 use Imperium\Models\Role;
 
 class RolesController extends Controller
