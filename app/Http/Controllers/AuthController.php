@@ -2,7 +2,7 @@
 
 namespace Imperium\Http\Controllers;
 
-use Imperium\User;
+use Imperium\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Mail\Message;
 use JWTAuth, Validator, DB, Hash, Mail;
@@ -64,7 +64,7 @@ class AuthController extends Controller
             $user = User::find($check->user_id);
             if($user->is_verified == 1){
                 return response()->json([
-                    'success'=> true,
+                    'success'=> false,
                     'message'=> trans('mail.alVerified')
                 ]);
             }
@@ -113,7 +113,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Log out
+     * API Logout
      * Invalidate the token, so user cannot use it anymore
      * They have to relogin to get a new token
      *
@@ -153,5 +153,21 @@ class AuthController extends Controller
             return response()->json(['success' => false, 'error' => $error_message], 401);
         }
         return response()->json(['success' => true, 'data'=> trans('mail.resetSent')]);
+    }
+
+    /**
+     * Get the authenticated User
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function me()
+    {
+        return response()->json($this->guard()->user());
+    }
+
+    public function test(Request $request)
+    {
+        $request->user()->authorizeRoles('Administrador');
+        return auth()->user();
     }
 }

@@ -2,7 +2,8 @@
 
 namespace Imperium\Http\Controllers\Auth;
 
-use Imperium\User;
+use Imperium\Models\Role;
+use Imperium\Models\User;
 use Imperium\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -63,10 +64,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        $user->roles()->attach(Role::where('name', 'Utilizador')->first());
+
+        return $user;
     }
 }

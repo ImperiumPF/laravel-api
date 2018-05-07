@@ -1,69 +1,84 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
+<body class="login-page sidebar-collapse">
+    <!-- Navbar -->
+    @include('partials.navbarlogin')
+    <!-- End Navbar -->
+    <div class="page-header" filter-color="orange">
+        <div class="page-header-image" style="background-image:url(../assets/images/convento.jpg)"></div>
+        <div class="container">
+            <div class="col-md-4 content-center">
+                <div class="card card-login card-plain">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
+                        <div class="header header-primary text-center">
+                            <div class="logo-container">
+                                <img src="{{ asset('/assets/images/logo-white.png') }}" alt="Imperium">
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
+                        <div class="content">
+                            <div class="input-group form-group-no-border input-lg">
+                                <span class="input-group-addon">
+                                    <i class="now-ui-icons users_circle-08"></i>
+                                </span>
+                                <input id="email" type="email" placeholder="{{ __('E-Mail Address') }}" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                                
+                                <!-- This needs to be fixed -->
+                                        @if ($errors->has('email'))
+                                            <span class="invalid-feedback">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                        @endif
+                                    
+                            </div>
+                            <div class="input-group form-group-no-border input-lg">
+                                <span class="input-group-addon">
+                                    <i class="now-ui-icons text_caps-small"></i>
+                                </span>
+                                <input id="password" type="password" placeholder="{{ __('Password') }}" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required />
+                            
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
                             </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="input-group form-group-no-border input-lg">
                                 <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Remember Me') }}
+                                    <input type="checkbox" id="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                                    <label for="checkbox">
+                                        Remember Me
                                     </label>
                                 </div>
                             </div>
                         </div>
+                        <div class="footer text-center">
+                            <button type="submit" class="btn btn-primary btn-round btn-lg btn-block">
+                                {{ __('Login') }}
+                            </button>
+                        </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
-                            </div>
+                        <div class="footer text-center">
+                            <a href="{{ url('login/facebook') }}" class="btn btn-social-icon btn-facebook"><i class="fa fa-facebook"></i> Facebook</a>
+                            <a href="{{ url('login/google') }}" class="btn btn-social-icon btn-google-plus"><i class="fa fa-google-plus"></i> Google</a>
+                        </div>
+                        
+                        <div class="pull-left">
+                            <h6>
+                                <a href="{{ route('register') }}" class="link">{{ __('Create Account') }}</a>
+                            </h6>
+                        </div>
+                        <div class="pull-right">
+                            <h6>
+                                <a href="{{ route('password.request') }}" class="link">{{ __('Forgot Your Password?') }}</a>
+                            </h6>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+        @include('partials.footer')
     </div>
-</div>
+</body>
 @endsection
