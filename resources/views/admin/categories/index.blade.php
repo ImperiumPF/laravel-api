@@ -1,47 +1,27 @@
-@extends('layouts.admin') @section('content')
+@extends('layouts.admin') 
+
+@section('title', $title)
+
+@section('content')
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Users</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item">
-                            <a href="#">Home</a>
-                        </li>
-                        <li class="breadcrumb-item active">Categories</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-        <!-- /.container-fluid -->
-    </section>
-
+    <section class="content-header"></section>
     <!-- Main content -->
     <section class="content">
-
+        @include('admin.partials.alerts')
         <!-- Default box -->
-        <div class="card">
+        <div class="card card-dark">
             <div class="card-header">
-                <h3 class="card-title">Categories List</h3>
-
-                <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                </div>
+                <h3 class="card-title">{{ $title }}</h3>
             </div>
-            <div class="card-body p-0">
-                <table class="table table-striped table-valign-middle">
+            <div class="card-body">
+                <table class="table table-bordered table-hover" data-toggle="dataTable" data-form="deleteForm">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Options</th>
+                            <th>{{ __('categories.name') }}</th>
+                            <th>{{ __('categories.desc') }}</th>
+                            <th>{{ __('categories.options') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,9 +35,10 @@
                                     <a href="{{ route('categories.edit', ['id' => $row->id]) }}" class="btn btn-info btn-xs">
                                         <i class="fa fa-pencil" title="Edit"></i>
                                     </a>
-                                    <a href="{{ route('categories.show', ['id' => $row->id]) }}" class="btn btn-danger btn-xs">
-                                        <i class="fa fa-trash-o" title="Delete"></i>
-                                    </a>
+                                    {{ Form::model($row, ['method' => 'delete', 'route' => ['categories.destroy', $row->id], 'class' =>'btn btn-xs form-delete']) }}
+                                    {{ Form::hidden('id', $row->id) }}
+                                    {{ Form::button('<i class="fa fa-trash-o" title="Delete"></i>', ['class' => 'btn btn-danger btn-xs form-delete', 'name' => 'deleteUser']) }}
+                                    {{ Form::close() }}
                                 </td>
                             </tr>
                             @endforeach 
@@ -73,4 +54,35 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+@endsection
+
+@section('modal')
+<!-- Modal -->
+<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="confirmLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmLabel">Eliminar?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Eliminar?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('users.close') }}</button>
+                <button type="button" class="btn btn-danger" id="delete-btn">{{ __('admin.delete') }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('scripts')
+  <!-- DataTables -->
+  <script src="{{ asset('assets/js/plugins/jquery.dataTables.min.js') }}"></script>
+  <script src="{{ asset('assets/js/plugins/dataTables.bootstrap4.min.js') }}"></script>
+
+  <script src="{{ asset('assets/js/admin.js') }}"></script>
 @endsection

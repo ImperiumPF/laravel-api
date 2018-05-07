@@ -17,7 +17,7 @@ class CategoriesController extends Controller {
     {
         $categories = Category::all();
         $params = [
-            'title' => 'Categories List',
+            'title' => trans('categories.list'),
             'categories' => $categories,
         ];
 
@@ -36,7 +36,10 @@ class CategoriesController extends Controller {
      */
     public function create()
     {
-        return view('admin.categories.create');
+        $params = [
+            'title' => trans('categories.add')
+        ];
+        return view('admin.categories.create')->with($params);
     }
 
     /**
@@ -47,7 +50,7 @@ class CategoriesController extends Controller {
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|unique:categories',
             'description' => 'required'
         ]);
         $category = Category::create([
@@ -59,7 +62,7 @@ class CategoriesController extends Controller {
             return response()->json("ok");
         }
 
-        return redirect()->route('admin.categories.index')->with('success', "The user <strong>$user->name</strong> has successfully been created.");
+        return redirect()->route('categories.index')->with('success', trans('categories.created', ['name' => $category->name]));
     }
 
     /**
@@ -86,17 +89,17 @@ class CategoriesController extends Controller {
             $category = Category::findOrFail($id);
 
             $params = [
-                'title' => 'Edit Product Category',
+                'title' => trans('categories.edit'),
                 'category' => $category,
             ];
 
-            return view('admin.categories.index')->with($params);
+            return view('admin.categories.edit')->with($params);
         }
         catch (ModelNotFoundException $ex) 
         {
             if ($ex instanceof ModelNotFoundException)
             {
-                return response()->view('errors.'.'404');
+                return redirect()->route('categories.index')->with('error', trans('categories.notFound'));
             }
         }
     }
@@ -122,13 +125,13 @@ class CategoriesController extends Controller {
             $category->description = $request->input('description');
             $category->save();
 
-            return redirect()->route('admin.categories.index')->with('success', "The product category <strong>Category</strong> has successfully been updated.");
+            return redirect()->route('categories.index')->with('success', trans('categories.updated', ['name' => $category->name]));
         }
         catch (ModelNotFoundException $ex) 
         {
             if ($ex instanceof ModelNotFoundException)
             {
-                return response()->view('errors.'.'404');
+                return redirect()->route('categories.index')->with('error', trans('categories.notFound'));
             }
         }
     }
@@ -145,13 +148,13 @@ class CategoriesController extends Controller {
         {
             $category = Category::findOrFail($id);
             $category->delete();
-            return redirect()->route('admin.categories.index')->with('success', "The product category <strong>Category</strong> has successfully been archived.");
+            return redirect()->route('categories.index')->with('success', trans('categories.deleted', ['name' => $category->name]));
         }
         catch (ModelNotFoundException $ex) 
         {
             if ($ex instanceof ModelNotFoundException)
             {
-                return redirect()->route('product-categories.index')->with('error', "Ocorreu um erro ao eliminar a categoria");
+                return redirect()->route('categories.index')->with('error', trans('categories.notFound'));
             }
         }
     }

@@ -14,7 +14,7 @@
         <li class="nav-item">
           <a href="{{{ url('/backend') }}}" class="nav-link {{{ (Request::is('backend') ? 'active' : '') }}}">
             <i class="nav-icon fa fa-dashboard"></i>
-            <p>Dashboard</p>
+            <p>{{ __('admin.dashboard') }}</p>
           </a>
         </li>
 
@@ -23,7 +23,7 @@
         <li class="nav-item has-treeview {{{ (Request::is('backend/users*') ? 'menu-open' : '') }}}">
           <a href="#" class="nav-link {{{ (Request::is('backend/users*') ? 'active' : '') }}}">
             <i class="nav-icon fa fa-users"></i>
-            <p>Users
+            <p>{{ __('users.users') }}
               <i class="fa fa-angle-left right"></i>
             </p>
           </a>
@@ -31,13 +31,37 @@
             <li class="nav-item">
               <a href="{{{ url('/backend/users') }}}" class="nav-link {{{ (Request::is('backend/users') ? 'active' : '') }}}">
                 <i class="fa fa-table nav-icon"></i>
-                <p>List Users</p>
+                <p>{{ __('users.list') }}</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{{{ url('/backend/users/create') }}}" class="nav-link {{{ (Request::is('backend/users/create') ? 'active' : '') }}}">
                 <i class="fa fa-user-plus nav-icon"></i>
-                <p>Add User</p>
+                <p>{{ __('users.add') }}</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- Roles -->
+        <li class="nav-item has-treeview {{{ (Request::is('backend/roles*') ? 'menu-open' : '') }}}">
+          <a href="#" class="nav-link {{{ (Request::is('backend/roles*') ? 'active' : '') }}}">
+            <i class="nav-icon fa fa-gavel"></i>
+            <p>{{ __('roles.roles') }}
+              <i class="fa fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{{ url('/backend/roles') }}}" class="nav-link {{{ (Request::is('backend/roles') ? 'active' : '') }}}">
+                <i class="fa fa-table nav-icon"></i>
+                <p>{{ __('roles.list') }}</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{{ url('/backend/roles/create') }}}" class="nav-link {{{ (Request::is('backend/roles/create') ? 'active' : '') }}}">
+                <i class="fa fa-plus-square-o nav-icon"></i>
+                <p>{{ __('roles.add') }}</p>
               </a>
             </li>
           </ul>
@@ -48,7 +72,7 @@
         <li class="nav-item has-treeview {{{ (Request::is('backend/categories*') ? 'menu-open' : '') }}}">
           <a href="#" class="nav-link {{{ (Request::is('backend/categories*') ? 'active' : '') }}}">
             <i class="nav-icon fa fa-map-signs"></i>
-            <p>Categories
+            <p>{{ __('categories.categories') }}
               <i class="fa fa-angle-left right"></i>
             </p>
           </a>
@@ -56,13 +80,13 @@
             <li class="nav-item">
               <a href="{{{ url('/backend/categories') }}}" class="nav-link {{{ (Request::is('backend/categories') ? 'active' : '') }}}">
                 <i class="fa fa-table nav-icon"></i>
-                <p>List Categories</p>
+                <p>{{ __('categories.list') }}</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{{{ url('/backend/categories/create') }}}" class="nav-link {{{ (Request::is('backend/categories/create') ? 'active' : '') }}}">
                 <i class="fa fa-plus-square-o nav-icon"></i>
-                <p>Add Category</p>
+                <p>{{ __('categories.add') }}</p>
               </a>
             </li>
           </ul>
