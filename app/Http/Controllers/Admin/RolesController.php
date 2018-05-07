@@ -1,11 +1,12 @@
 <?php
 
-namespace Imperium\Http\Controllers;
-
-use Illuminate\Http\Request;
+namespace Imperium\Http\Controllers\Admin;
 
 use DB;
 use Imperium\Models\Role;
+use Illuminate\Http\Request;
+use Imperium\Http\Controllers\Controller;
+
 
 class RolesController extends Controller
 {
@@ -17,7 +18,7 @@ class RolesController extends Controller
     public function index(Request $request)
     {
         $roles = Role::orderBy('id','DESC')->paginate(5);
-        return view('roles.index',compact('roles'))
+        return view('admin.roles.index',compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -29,7 +30,7 @@ class RolesController extends Controller
     public function create()
     {
         $permissions = Permission::pluck('display_name','id');
-        return view('roles.create',compact('permissions')); //return the view with the list of permissions passed as an array
+        return view('admin.roles.create',compact('permissions')); //return the view with the list of permissions passed as an array
     }
 
     /**
@@ -55,7 +56,7 @@ class RolesController extends Controller
         foreach ($request->input('permissions') as $key => $value) {
             $role->attachPermission($value);
         }
-        return redirect()->route('roles.index')
+        return redirect()->route('admin.roles.index')
             ->with('success','Role created successfully');
     }
 
@@ -74,7 +75,7 @@ class RolesController extends Controller
             ->where("permission_role.role_id",$id)
             ->get();
         //return the view with the role info and its permissions
-        return view('roles.show',compact('role','permissions'));
+        return view('admin.roles.show',compact('role','permissions'));
     }
 
     /**
@@ -97,7 +98,7 @@ class RolesController extends Controller
                 ->where("role_id",$id)
                 ->pluck('permission_id')
                 ->toArray();
-        return view('roles.edit',compact('role','permissions','rolePermissions'));
+        return view('admin.roles.edit',compact('role','permissions','rolePermissions'));
     }
 
     /**
@@ -124,7 +125,7 @@ class RolesController extends Controller
         foreach ($request->input('permissions') as $key => $value) {
             $role->attachPermission($value);
         }
-        return redirect()->route('roles.index')
+        return redirect()->route('admin.roles.index')
             ->with('success','Role updated successfully');
     }
 
@@ -137,7 +138,7 @@ class RolesController extends Controller
     public function destroy($id)
     {
         DB::table("roles")->where('id',$id)->delete();
-        return redirect()->route('roles.index')
+        return redirect()->route('admin.roles.index')
             ->with('success','Role deleted successfully');
     }
 }

@@ -23,5 +23,11 @@ return [
     'logout' => 'You have successfully logged out.',
     'logoutError' => 'Failed to logout, please try again.',
 
+    /* Web */
+    'login' => 'Login',
+    'register' => 'Register',
+    'follow' => 'Follow us on :social',
+    'like' => 'Like us on :social'
+
 
 ];

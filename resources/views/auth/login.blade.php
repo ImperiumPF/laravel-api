@@ -3,7 +3,7 @@
 @section('content')
 <body class="login-page sidebar-collapse">
     <!-- Navbar -->
-    @include('partials.navbar')
+    @include('partials.navbarlogin')
     <!-- End Navbar -->
     <div class="page-header" filter-color="orange">
         <div class="page-header-image" style="background-image:url(../assets/images/convento.jpg)"></div>

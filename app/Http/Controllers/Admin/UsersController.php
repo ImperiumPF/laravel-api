@@ -1,7 +1,8 @@
 <?php
 
-namespace Imperium\Http\Controllers;
+namespace Imperium\Http\Controllers\Admin;
 
+use Auth;
 use Imperium\Models\Role;
 use Imperium\Models\User;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class UsersController extends Controller
     {
         $users = User::all();
         $params = [
-            'title' => 'Users Listing',
+            'title' => trans('users.list'),
             'users' => $users,
         ];
         return view('admin.users.index')->with($params);
@@ -31,8 +32,11 @@ class UsersController extends Controller
      */
     public function create()
     {
+        $roles = Role::all();
+
         $params = [
-            'title' => 'Create User',
+            'title' => trans('users.create'),
+            'roles' => $roles,
         ];
         return view('admin.users.create')->with($params);
     }
@@ -46,16 +50,22 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|unique:users',
-            'password' => 'required',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
         ]);
+
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
         ]);
-        return redirect()->route('users.index')->with('success', "The user <strong>$user->name</strong> has successfully been created.");
+
+        $role = Role::find($request->input('role_id'));
+
+        $user->roles()->attach($role);
+        
+        return redirect()->route('users.index')->with('success', trans('users.created', ['name' => $user->name]));
     }
 
     /**
@@ -64,24 +74,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        try
-        {
-            $user = User::findOrFail($id);
-            $params = [
-                'title' => 'Delete User',
-                'user' => $user,
-            ];
-            return view('admin.users.delete')->with($params);
-        }
-        catch (ModelNotFoundException $ex) 
-        {
-            if ($ex instanceof ModelNotFoundException)
-            {
-                return response()->view('errors.'.'404');
-            }
-        }
+        //
     }
 
     /**
@@ -95,9 +90,11 @@ class UsersController extends Controller
         try
         {
             $user = User::findOrFail($id);
+            $roles = Role::all();
             $params = [
-                'title' => 'Edit User',
+                'title' => trans('users.edit'),
                 'user' => $user,
+                'roles' => $roles,
             ];
             return view('admin.users.edit')->with($params);
         }
@@ -105,7 +102,7 @@ class UsersController extends Controller
         {
             if ($ex instanceof ModelNotFoundException)
             {
-                return response()->view('errors.'.'404');
+                return redirect()->route('users.index')->with('error', trans('users.notFound'));
             }
         }
     }
@@ -123,18 +120,22 @@ class UsersController extends Controller
         {
             $user = User::findOrFail($id);
             $this->validate($request, [
-                'name' => 'required',
-                'email' => 'required|email|unique:users,email,'.$id,
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users,email,'.$id,
             ]);
+            $user->name = $request->input('name');
             $user->email = $request->input('email');
             $user->save();
-            return redirect()->route('admin.users.index')->with('success', "The user <strong>$user->name</strong> has successfully been updated.");
+            
+            // detach and atach role?
+
+            return redirect()->route('users.index')->with('success', trans('users.updated', ['name' => $user->name]));
         }
         catch (ModelNotFoundException $ex) 
         {
             if ($ex instanceof ModelNotFoundException)
             {
-                return response()->view('errors.'.'404');
+                return redirect()->route('users.index')->with('error', trans('users.notFound'));
             }
         }
     }
@@ -149,15 +150,18 @@ class UsersController extends Controller
     {
         try
         {
+            if (Auth::user()->id == $id || $id == 1)
+                return redirect()->route('users.index')->with('error', trans('users.cantDelete'));
+
             $user = User::findOrFail($id);
             $user->delete();
-            return redirect()->route('admin.users.index')->with('success', "The user <strong>$user->name</strong> has successfully been archived.");
+            return redirect()->route('users.index')->with('success', trans('users.deleted', ['name' => $user->name]));
         }
         catch (ModelNotFoundException $ex) 
         {
             if ($ex instanceof ModelNotFoundException)
             {
-                return response()->view('errors.'.'404');
+                return redirect()->route('users.index')->with('error', trans('users.notFound'));
             }
         }
     }

@@ -37,6 +37,12 @@ Route::group(['domain' => env('APP_URL_API'), 'prefix' => 'v1'], function() {
      */
     Route::post('recover', 'AuthController@recover');
 
+    /**
+     *
+     */
+    Route::get('categories', 'Admin\CategoriesController@index');
+    Route::post('teste', 'Admin\CategoriesController@store');
+
 
     /**
      * Routes with authentication needed

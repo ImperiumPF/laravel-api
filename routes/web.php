@@ -10,6 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('locale/{locale}', function ($locale) {
+    \Session::put('locale', $locale);
+    return redirect()->back();
+})->where('locale','pt|en');
 
 /**
  * User verification route
@@ -36,9 +40,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Route::group(['prefix' => 'backend','middleware' => ['role:Administrador']],function(){
-Route::group(['prefix' => 'backend'],function(){
+Route::group(['prefix' => 'backend','namespace' => 'Admin'],function(){
     Route::resource('users', 'UsersController');
-    //Route::resource('roles','RoleController');
+    Route::resource('roles','RolesController');
+    Route::resource('categories','CategoriesController');
 });
 
 /**
@@ -51,3 +56,5 @@ Route::get('/login/{social}/callback','Auth\LoginController@handleProviderCallba
         ->where('social','facebook|google');
 
 Route::get('/backend', 'HomeController@admin')->name('index');
+
+//});
