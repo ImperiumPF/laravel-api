@@ -57,7 +57,8 @@ class CategoriesController extends Controller {
             'name' => $request->input('name'),
             'description' => $request->input('description')
         ]);
-
+          
+        //TODO: fix this
         if ($request->wantsJson()) {
             return response()->json("ok");
         }

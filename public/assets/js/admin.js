@@ -12,13 +12,9 @@ $(function () {
         "paging": false,
         "searching": false,
         "info": false,
-    });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false
+        "columnDefs": [{
+            "targets": 3,
+            "orderable": false
+        }]
     });
   });

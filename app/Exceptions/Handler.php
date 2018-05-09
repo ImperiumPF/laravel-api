@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException as Unauthorized;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException as MethodNotAllowed;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException as NotFound;
 
 class Handler extends ExceptionHandler
 {
@@ -50,17 +51,16 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof MethodNotAllowed) {
-            //check if is running on the api host
-            if(strpos($request->getHttpHost(), 'api.') !== false){
-                return response()->json(['success' => false, 'error' => 'Method Not Allowed'], 405);
-            }
+        if ($exception instanceof MethodNotAllowed && $request->wantsJson()) {
+            return response()->json(['success' => false, 'error' => 'Method Not Allowed'], 405);
         }
-        elseif ($exception instanceof Unauthorized) {
-            //check if is running on the api host
-            if(strpos($request->getHttpHost(), 'api.') !== false){
-                return response()->json(['success' => false, 'error' => $exception->getMessage()], 401);
-            }
+        
+        elseif ($exception instanceof Unauthorized && $request->wantsJson()) {
+            return response()->json(['success' => false, 'error' => $exception->getMessage()], 401);
+        }
+        
+        elseif ($exception instanceof NotFound && $request->wantsJson()) {
+            return response()->json(['success' => false, 'error' => "Resource not found"], 404);
         }
 
         return parent::render($request, $exception);

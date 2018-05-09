@@ -52,7 +52,7 @@ Route::group(['domain' => env('APP_URL_API'), 'prefix' => 'v1'], function() {
          * /v1/logout
          * Logout from an account
          */
-        Route::get('logout', 'AuthController@logout');
+        //Route::get('logout', 'AuthController@logout');
 
         /**
          * 
@@ -72,4 +72,3 @@ Route::group(['domain' => env('APP_URL_API'), 'prefix' => 'v1'], function() {
         //
     });
 });
-

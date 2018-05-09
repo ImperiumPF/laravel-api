@@ -14,8 +14,8 @@
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
-  <!-- IonIcons -->
-  <link rel="stylesheet" href="{{ asset('assets/css/ionicons.min.css') }}">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('assets/css/adminlte.min.css') }}">
   <!-- Google Font: Source Sans Pro -->
@@ -37,8 +37,8 @@
     @include('admin.partials.sidebar')
 
     <!-- Content Wrapper. Contains page content -->
-    @yield('content')
-
+    @yield('content') 
+    
     @yield('modal')
 
     <!-- Main Footer -->
