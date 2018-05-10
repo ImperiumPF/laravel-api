@@ -59,6 +59,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix' => 'backend','namespace' => 'Admin'],function(){
     Route::resource('users', 'UsersController')->middleware('role:Administrador');
     Route::resource('roles','RolesController');
+    Route::resource('places','PlacesController');
 });
 
 Route::group(['prefix' => 'backend','namespace' => 'Admin'],function(){
