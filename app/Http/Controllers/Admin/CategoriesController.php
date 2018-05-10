@@ -22,7 +22,7 @@ class CategoriesController extends Controller {
         ];
 
         // If it's an API request
-        if ($request->acceptsJson()) {
+        if ($request->wantsJson()) {
             return response()->json(['success'=> true, 'message'=> $categories]);
         }
 
@@ -56,7 +56,7 @@ class CategoriesController extends Controller {
 
         $validator = \Validator::make($request->all(), $rules);
 
-        if ($request->acceptsJson()) {
+        if ($request->wantsJson()) {
             if($validator->fails())
                 return response()->json(['success'=> false, 'error'=> $validator->errors()->all()]);
         }
@@ -67,7 +67,7 @@ class CategoriesController extends Controller {
         ]);
           
 
-        if ($request->acceptsJson())
+        if ($request->wantsJson())
             return response()->json(['success'=> true, 'message'=> trans('categories.created', ['name' => $category->name])]);
 
         return redirect()->route('categories.index')->with('success', trans('categories.created', ['name' => $category->name]));
@@ -167,7 +167,7 @@ class CategoriesController extends Controller {
         {
             $category = Category::findOrFail($id);
             $category->delete();
-            if ($request->acceptsJson()) {
+            if ($request->wantsJson()) {
                 return response()->json(['success'=> true, 'error'=> trans('categories.deleted', ['name' => $category->name])]);
             }
             return redirect()->route('categories.index')->with('success', trans('categories.deleted', ['name' => $category->name]));
@@ -176,7 +176,7 @@ class CategoriesController extends Controller {
         {
             if ($ex instanceof ModelNotFoundException)
             {
-                if ($request->acceptsJson()) {
+                if ($request->wantsJson()) {
                     return response()->json(['success'=> false, 'error'=> trans('categories.notFound')]);
                 }
                 return redirect()->route('categories.index')->with('error', trans('categories.notFound'));
