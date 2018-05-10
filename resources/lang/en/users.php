@@ -2,14 +2,22 @@
 
 return [
 
-    'list'             => 'Users List',
-    'create'           => 'Create User',
+    /* Sidebar */
+    'users'            => 'Users',
+    'listU'            => 'List Users',
+    'add'              => 'Add User',
+
+    /* Controller */
+    'Ulist'            => 'Users List',
+    'create'           => 'Create User',          
     'created'          => 'The user <strong>:name</strong> has been successfully created.',
     'edit'             => 'Edit User',
     'notFound'         => 'The user cannot be found.',
     'updated'          => 'The user <strong>:name</strong> has successfully been updated.',
     'cantDelete'       => 'You can\'t delete this user.',
     'deleted'          => 'The user <strong>:name</strong> has successfully been archived.',
+
+    /* Views */
     'name'             => 'Name',
     'email'            => 'E-mail',
     'password'         => 'Password',

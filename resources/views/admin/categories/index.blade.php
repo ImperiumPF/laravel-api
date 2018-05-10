@@ -21,7 +21,7 @@
                             <th>ID</th>
                             <th>{{ __('categories.name') }}</th>
                             <th>{{ __('categories.desc') }}</th>
-                            <th>{{ __('categories.options') }}</th>
+                            <th>{{ __('admin.options') }}</th>
                         </tr>
                     </thead>
                     <tbody>

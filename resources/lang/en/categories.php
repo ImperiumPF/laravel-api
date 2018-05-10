@@ -25,11 +25,11 @@ return [
     'deleted'                => 'The category <strong>:name</strong> has successfully been deleted.',
 
     /* Views */
-    'name'                   => 'Nome',
+    'name'                   => 'Name',
     'desc'                   => 'Description',
     'options'                => 'Options',
-    'Ename'                  => 'Enter Name',
-    'Edesc'                  => 'Enter Description',
+    'Ename'                  => 'Insert Name',
+    'Edesc'                  => 'Insert Description',
     'save'                   => 'Save',
 
 ];

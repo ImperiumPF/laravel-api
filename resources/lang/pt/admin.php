@@ -5,6 +5,7 @@ return [
     'options'           => 'Opções',
     'edit'              => 'Editar',
     'delete'            => 'Eliminar',
+    'close'             => 'Fechar',
     
     
 ];

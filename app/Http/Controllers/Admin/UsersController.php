@@ -24,7 +24,7 @@ class UsersController extends Controller
     {
         $users = User::all();
         $params = [
-            'title' => trans('users.list'),
+            'title' => trans('users.Ulist'),
             'users' => $users,
         ];
         return view('admin.users.index')->with($params);
@@ -132,7 +132,7 @@ class UsersController extends Controller
             $user->email = $request->input('email');
             $user->save();
             
-            // detach and atach role?
+            // TODO: detach and atach role
 
             return redirect()->route('users.index')->with('success', trans('users.updated', ['name' => $user->name]));
         }

@@ -31,7 +31,7 @@
             <li class="nav-item">
               <a href="{{{ url('/backend/users') }}}" class="nav-link {{{ (Request::is('backend/users') ? 'active' : '') }}}">
                 <i class="fa fa-table nav-icon"></i>
-                <p>{{ __('users.list') }}</p>
+                <p>{{ __('users.listU') }}</p>
               </a>
             </li>
             <li class="nav-item">
@@ -55,7 +55,7 @@
             <li class="nav-item">
               <a href="{{{ url('/backend/roles') }}}" class="nav-link {{{ (Request::is('backend/roles') ? 'active' : '') }}}">
                 <i class="fa fa-table nav-icon"></i>
-                <p>{{ __('roles.list') }}</p>
+                <p>{{ __('roles.listR') }}</p>
               </a>
             </li>
             <li class="nav-item">
@@ -97,7 +97,7 @@
           <a href="#" class="nav-link {{{ (Request::is('backend/places*') ? 'active' : '') }}}">
             <i class="nav-icon fa fa-map-marker"></i>
             <p>
-              Places
+                {{ __('places.places') }}
               <i class="fa fa-angle-left right"></i>
             </p>
           </a>
@@ -105,13 +105,13 @@
             <li class="nav-item">
               <a href="{{{ url('/backend/places') }}}" class="nav-link {{{ (Request::is('backend/places') ? 'active' : '') }}}">
                 <i class="fa fa-table nav-icon"></i>
-                <p>List Places</p>
+                <p>{{ __('places.list') }}</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{{{ url('/backend/places/create') }}}" class="nav-link {{{ (Request::is('backend/places/create') ? 'active' : '') }}}">
                 <i class="fa fa-plus-square-o nav-icon"></i>
-                <p>Add Place</p>
+                <p>{{ __('places.add') }}</p>
               </a>
             </li>
           </ul>

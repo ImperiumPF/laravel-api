@@ -22,7 +22,7 @@ class CategoriesController extends Controller {
         ];
 
         // If it's an API request
-        if ($request->wantsJson()) {
+        if ($request->acceptsJson()) {
             return response()->json(['success'=> true, 'message'=> $categories]);
         }
 
@@ -59,7 +59,7 @@ class CategoriesController extends Controller {
         ]);
           
         //TODO: fix this
-        if ($request->wantsJson()) {
+        if ($request->acceptsJson()) {
             return response()->json("ok");
         }
 

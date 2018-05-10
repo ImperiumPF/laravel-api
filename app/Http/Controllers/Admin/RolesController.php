@@ -2,7 +2,6 @@
 
 namespace Imperium\Http\Controllers\Admin;
 
-use DB;
 use Imperium\Models\Role;
 use Illuminate\Http\Request;
 use Imperium\Http\Controllers\Controller;
@@ -19,7 +18,7 @@ class RolesController extends Controller
     {
         $roles = Role::all();
         $params = [
-            'title' => trans('roles.list'),
+            'title' => trans('roles.Rlist'),
             'roles' => $roles,
         ];
         return view('admin.roles.index')->with($params);
@@ -47,22 +46,15 @@ class RolesController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
-            'display_name' => 'required',
             'description' => 'required',
-            'permissions' => 'required',
         ]);
         //create the new role
         $role = new Role();
         $role->name = $request->input('name');
-        $role->display_name = $request->input('display_name');
         $role->description = $request->input('description');
         $role->save();
-        //attach the selected permissions
-        foreach ($request->input('permissions') as $key => $value) {
-            $role->attachPermission($value);
-        }
-        return redirect()->route('admin.roles.index')
-            ->with('success','Role created successfully');
+
+        return redirect()->route('roles.index')->with('success', trans('roles.created', ['name' => $role->name]));
     }
 
     /**
@@ -84,7 +76,24 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        
+        try
+        {
+            $role = Role::findOrFail($id);
+
+            $params = [
+                'title' => trans('roles.edit'),
+                'category' => $role,
+            ];
+
+            return view('admin.roles.edit')->with($params);
+        }
+        catch (ModelNotFoundException $ex) 
+        {
+            if ($ex instanceof ModelNotFoundException)
+            {
+                return redirect()->route('roles.index')->with('error', trans('roles.notFound'));
+            }
+        }
     }
 
     /**
@@ -99,22 +108,22 @@ class RolesController extends Controller
         {
             $role = Role::findOrFail($id);
             $this->validate($request, [
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users,email,'.$id,
+                'name' => 'required',
+                'description' => 'required',
             ]);
-            $user->name = $request->input('name');
-            $user->email = $request->input('email');
-            $user->save();
+            $role->name = $request->input('name');
+            $role->description = $request->input('description');
+            $role->save();
             
             // detach and atach role?
 
-            return redirect()->route('users.index')->with('success', trans('users.updated', ['name' => $user->name]));
+            return redirect()->route('roles.index')->with('success', trans('roles.updated', ['name' => $role->name]));
         }
         catch (ModelNotFoundException $ex) 
         {
             if ($ex instanceof ModelNotFoundException)
             {
-                return redirect()->route('users.index')->with('error', trans('users.notFound'));
+                return redirect()->route('users.index')->with('error', trans('roles.notFound'));
             }
         }
     }
@@ -131,13 +140,13 @@ class RolesController extends Controller
         {
             $role = Role::findOrFail($id);
             $role->delete();
-            return redirect()->route('roles.index')->with('success', 'Role deleted successfully');
+            return redirect()->route('roles.index')->with('success', trans('roles.deleted', ['name' => $role->name]));
         }
         catch (ModelNotFoundException $ex) 
         {
             if ($ex instanceof ModelNotFoundException)
             {
-                return redirect()->route('users.index')->with('error', 'Role not found');
+                return redirect()->route('users.index')->with('error', trans('roles.notFound'));
             }
         }
     }

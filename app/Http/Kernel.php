@@ -64,5 +64,6 @@ class Kernel extends HttpKernel
         'jwt.auth' => 'Tymon\JWTAuth\Middleware\GetUserFromToken',
         'jwt.refresh' => 'Tymon\JWTAuth\Middleware\RefreshToken',
         'role' => \Imperium\Http\Middleware\CheckRole::class,
+        'localization' => \Imperium\Http\Middleware\Localization::class,
     ];
 }
