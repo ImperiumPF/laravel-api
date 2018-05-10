@@ -14,7 +14,7 @@
 /**
  * Set the localization
  */
-Route::get('locale/{locale}', function ($locale) {
+Route::get('lang/{locale}', function ($locale) {
     Session::put('locale', $locale);
     return redirect()->back();
 })->where('locale','pt|en');
@@ -55,15 +55,11 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//Route::group(['prefix' => 'backend','middleware' => ['role:Administrador']],function(){
 Route::group(['prefix' => 'backend','namespace' => 'Admin'],function(){
     Route::resource('users', 'UsersController')->middleware('role:Administrador');
-    Route::resource('roles','RolesController');
-    Route::resource('places','PlacesController');
-});
-
-Route::group(['prefix' => 'backend','namespace' => 'Admin'],function(){
+    Route::resource('roles','RolesController')->middleware('role:Administrador');
     Route::resource('categories','CategoriesController');
+    Route::resource('places','PlacesController');
 });
 
 /**

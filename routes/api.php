@@ -38,13 +38,6 @@ Route::group(['domain' => env('APP_URL_API'), 'prefix' => 'v1'], function() {
     Route::post('recover', 'AuthController@recover');
 
     /**
-     *
-     */
-    Route::get('categories', 'Admin\CategoriesController@index');
-    Route::post('teste', 'Admin\CategoriesController@store');
-
-
-    /**
      * Routes with authentication needed
      */
     Route::group(['middleware' => ['jwt.auth']], function() {
@@ -52,15 +45,27 @@ Route::group(['domain' => env('APP_URL_API'), 'prefix' => 'v1'], function() {
          * /v1/logout
          * Logout from an account
          */
-        //Route::get('logout', 'AuthController@logout');
+        Route::get('logout', 'AuthController@logout');
 
         /**
-         * 
+         * List all categories
          */
-        Route::get('testeauth', function(){
-            return response()->json('Auth');
-        });
+        Route::get('categories', 'Admin\CategoriesController@index');
 
+        /**
+         * List a category
+         */
+        Route::get('categories/{id}', 'Admin\CategoriesController@show');
+
+        /**
+         * Create a category
+         */
+        Route::post('categories', 'Admin\CategoriesController@store');
+
+        /**
+         * Delete a category
+         */
+        Route::delete('categories/{id}', 'Admin\CategoriesController@destroy');
     });
 
 

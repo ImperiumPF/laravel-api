@@ -49,19 +49,26 @@ class CategoriesController extends Controller {
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $rules = [
             'name' => 'required|unique:categories',
             'description' => 'required'
-        ]);
+        ];
+
+        $validator = \Validator::make($request->all(), $rules);
+
+        if ($request->acceptsJson()) {
+            if($validator->fails())
+                return response()->json(['success'=> false, 'error'=> $validator->errors()->all()]);
+        }
+
         $category = Category::create([
             'name' => $request->input('name'),
             'description' => $request->input('description')
         ]);
           
-        //TODO: fix this
-        if ($request->acceptsJson()) {
-            return response()->json("ok");
-        }
+
+        if ($request->acceptsJson())
+            return response()->json(['success'=> true, 'message'=> trans('categories.created', ['name' => $category->name])]);
 
         return redirect()->route('categories.index')->with('success', trans('categories.created', ['name' => $category->name]));
     }
@@ -74,7 +81,18 @@ class CategoriesController extends Controller {
      */
     public function show($id)
     {
-        //
+        try
+        {
+            $category = Category::findOrFail($id);
+            return response()->json(['success'=> true, 'message'=> $category]);
+        }
+        catch (ModelNotFoundException $ex) 
+        {
+            if ($ex instanceof ModelNotFoundException)
+            {
+                return response()->json(['success'=> false, 'message'=> trans('categories.notFound')]);
+            }
+        }
     }
 
     /**
@@ -143,18 +161,24 @@ class CategoriesController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         try
         {
             $category = Category::findOrFail($id);
             $category->delete();
+            if ($request->acceptsJson()) {
+                return response()->json(['success'=> true, 'error'=> trans('categories.deleted', ['name' => $category->name])]);
+            }
             return redirect()->route('categories.index')->with('success', trans('categories.deleted', ['name' => $category->name]));
         }
         catch (ModelNotFoundException $ex) 
         {
             if ($ex instanceof ModelNotFoundException)
             {
+                if ($request->acceptsJson()) {
+                    return response()->json(['success'=> false, 'error'=> trans('categories.notFound')]);
+                }
                 return redirect()->route('categories.index')->with('error', trans('categories.notFound'));
             }
         }
