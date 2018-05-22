@@ -19,10 +19,13 @@
       <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
         <p>{{{ Auth::user()->email }}}</p>
         <div class="dropdown-divider"></div>
-        <a href="/logout" class="dropdown-item">
+        <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault();
+        document.getElementById('logout-form').submit();">
           <i class="fa fa-times mr-2"></i> Terminar Sessão
         </a>
-
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+          @csrf
+        </form>
       </div>
     </li>
   </ul>

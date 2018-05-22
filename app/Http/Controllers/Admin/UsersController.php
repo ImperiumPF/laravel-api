@@ -48,7 +48,7 @@ class UsersController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
+     * TODO: fix the creation when the softdelete is on
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */

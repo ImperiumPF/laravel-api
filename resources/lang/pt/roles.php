@@ -12,7 +12,7 @@ return [
     */
 
     /* Sidebar */
-    'roles'                  => 'Cargo',
+    'roles'                  => 'Cargos',
     'listR'                  => 'Listar Cargos',
     'add'                    => 'Adicionar Cargo',
 

@@ -51,15 +51,15 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof MethodNotAllowed && $request->acceptsJson()) {
+        if ($exception instanceof MethodNotAllowed && $request->wantsJson()) {
             return response()->json(['success' => false, 'error' => 'Method Not Allowed'], 405);
         }
         
-        elseif ($exception instanceof Unauthorized && $request->acceptsJson()) {
+        elseif ($exception instanceof Unauthorized && $request->wantsJson()) {
             return response()->json(['success' => false, 'error' => $exception->getMessage()], 401);
         }
         
-        elseif ($exception instanceof NotFound && $request->acceptsJson()) {
+        elseif ($exception instanceof NotFound && $request->wantsJson()) {
             return response()->json(['success' => false, 'error' => "Resource not found"], 404);
         }
 

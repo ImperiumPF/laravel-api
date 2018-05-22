@@ -40,7 +40,6 @@ Class Localization
             }
         }
 
-        error_log('local: '.$locale);
         App::setLocale($locale);
         Carbon::setLocale($locale);
 
