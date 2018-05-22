@@ -66,8 +66,12 @@ Route::group(['domain' => env('APP_URL_API'), 'prefix' => 'v1'], function() {
          * Delete a category
          */
         Route::delete('categories/{id}', 'Admin\CategoriesController@destroy');
-    });
 
+        /**
+         * Visit a place
+         */
+        Route::get('visit/{id}', 'Admin\VisitsController@visit');
+    });
 
     /**
      * Shop Routes
@@ -76,4 +80,6 @@ Route::group(['domain' => env('APP_URL_API'), 'prefix' => 'v1'], function() {
     Route::group(array('prefix' => 'shop'), function() {
         //
     });
+
+    Route::post('deploy', 'UtilController@deploy');
 });

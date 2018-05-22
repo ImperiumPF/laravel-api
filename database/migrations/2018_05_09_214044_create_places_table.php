@@ -18,13 +18,14 @@ class CreatePlacesTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->double('price');
-            $table->integer('schedule');
+            $table->string('schedule');
             $table->double('visitationTime');
             $table->integer('points')->default(100);
             $table->string('coordinates');
             $table->integer('rating')->default(3);
-            $table->integer('images');
+            $table->string('images');
             $table->timestamps();
+            
         });
     }
 

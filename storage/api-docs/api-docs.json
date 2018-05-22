@@ -1,0 +1,39 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Imperium API",
+        "version": "1.0"
+    },
+    "basePath": "/v1",
+    "paths": {
+        "/categories/{categoryID}": {
+            "get": {
+                "summary": "Get category info",
+                "parameters": [
+                    {
+                        "name": "categoryID",
+                        "in": "path",
+                        "description": "Target category.",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "404": {
+                        "description": "not found"
+                    },
+                    "406": {
+                        "description": "not acceptable"
+                    },
+                    "500": {
+                        "description": "internal server error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {}
+}
