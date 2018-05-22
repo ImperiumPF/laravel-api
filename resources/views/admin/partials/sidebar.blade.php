@@ -45,8 +45,8 @@
 
         <!-- Roles -->
         <li class="nav-item has-treeview {{{ (Request::is('backend/roles*') ? 'menu-open' : '') }}}">
-          <a href="#" class="nav-link {{{ (Request::is('backend/roles*') ? 'active' : '') }}}">
-            <i class="nav-icon fa fa-gavel"></i>
+          <a  href="#" class="nav-link {{{ (Request::is('backend/roles*') ? 'active' : '') }}}">
+            <i id="role" class="nav-icon fa fa-gavel"></i>
             <p>{{ __('roles.roles') }}
               <i class="fa fa-angle-left right"></i>
             </p>
@@ -59,7 +59,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{{ url('/backend/roles/create') }}}" class="nav-link {{{ (Request::is('backend/roles/create') ? 'active' : '') }}}">
+              <a id="createRole" href="{{{ url('/backend/roles/create') }}}" class="nav-link {{{ (Request::is('backend/roles/create') ? 'active' : '') }}}">
                 <i class="fa fa-plus-square-o nav-icon"></i>
                 <p>{{ __('roles.add') }}</p>
               </a>

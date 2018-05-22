@@ -36,7 +36,7 @@
                 <div class="card-footer">
                     <input type="hidden" name="_token" value="{{ Session::token() }}">
                     <input name="_method" type="hidden" value="PUT">
-                    <button type="submit" class="btn btn-success">{{ __('roles.save') }}</button>
+                    <button id="submit" type="submit" class="btn btn-success">{{ __('roles.save') }}</button>
                 </div>
             </form>
         </div>
