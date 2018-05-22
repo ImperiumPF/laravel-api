@@ -31,10 +31,12 @@
                   <td>{{$row->name}}</td>
                   <td>{{$row->email}}</td>
                   <td>
-                    <a href="{{ route('users.edit', ['id' => $row->id]) }}" class="btn btn-info btn-xs"><i class="fa fa-pencil" title="{{ __('admin.edit') }}"></i></a>                    
+                    <a href="{{ route('users.edit', ['id' => $row->id]) }}" id="{{$row->id}}" class="btn btn-info btn-xs">
+						<i class="fa fa-pencil" title="{{ __('admin.edit') }}"></i>
+					</a>                    
                     {{ Form::model($row, ['method' => 'delete', 'route' => ['users.destroy', $row->id], 'class' =>'btn btn-xs form-delete']) }}
                     {{ Form::hidden('id', $row->id) }}
-                    {{ Form::button('<i class="fa fa-trash-o" title="Delete"></i>', ['class' => 'btn btn-danger btn-xs form-delete', 'name' => 'deleteUser']) }}
+                    {{ Form::button('<i class="fa fa-trash-o" title="Delete"></i>', ['class' => 'btn btn-danger btn-xs form-delete', 'name' => 'deleteUser', 'id' => 'D'.$row->id.'']) }}
                     {{ Form::close() }}
                   </td>
                 </tr>

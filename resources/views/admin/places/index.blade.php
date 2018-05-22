@@ -46,12 +46,12 @@
                                 <td>{{$row->rating}}</td>
                                 <td>{{$row->images}}</td>
                                 <td>
-                                    <a href="{{ route('places.edit', ['id' => $row->id]) }}" class="btn btn-info btn-xs">
+                                    <a href="{{ route('places.edit', ['id' => $row->id]) }}" id="{{$row->id}}" class="btn btn-info btn-xs">
                                         <i class="fa fa-pencil" title="Edit"></i>
                                     </a>
                                     {{ Form::model($row, ['method' => 'delete', 'route' => ['places.destroy', $row->id], 'class' =>'btn btn-xs form-delete']) }}
                                     {{ Form::hidden('id', $row->id) }}
-                                    {{ Form::button('<i class="fa fa-trash-o" title="Delete"></i>', ['class' => 'btn btn-danger btn-xs form-delete', 'name' => 'deleteUser']) }}
+                                    {{ Form::button('<i class="fa fa-trash-o" title="Delete"></i>', ['class' => 'btn btn-danger btn-xs form-delete', 'name' => 'deleteUser', 'id' => 'D'.$row->id.'']) }}
                                     {{ Form::close() }}
                                 </td>
                             </tr>

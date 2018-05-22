@@ -77,7 +77,7 @@
         <!-- /.card-body -->
         <div class="card-footer">
           <input type="hidden" name="_token" value="{{ Session::token() }}">
-          <button type="submit" class="btn btn-success">{{ __('places.add') }}</button>
+          <button id="submit" type="submit" class="btn btn-success">{{ __('places.add') }}</button>
         </div>
       </form>
     </div>

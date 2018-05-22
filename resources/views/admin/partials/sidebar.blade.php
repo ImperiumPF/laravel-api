@@ -22,7 +22,7 @@
         <!-- Users -->
         <li class="nav-item has-treeview {{{ (Request::is('backend/users*') ? 'menu-open' : '') }}}">
           <a href="#" class="nav-link {{{ (Request::is('backend/users*') ? 'active' : '') }}}">
-            <i class="nav-icon fa fa-users"></i>
+            <i id="user" class="nav-icon fa fa-users"></i>
             <p>{{ __('users.users') }}
               <i class="fa fa-angle-left right"></i>
             </p>
@@ -35,7 +35,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{{ url('/backend/users/create') }}}" class="nav-link {{{ (Request::is('backend/users/create') ? 'active' : '') }}}">
+              <a href="{{{ url('/backend/users/create') }}}" id="createUser" class="nav-link {{{ (Request::is('backend/users/create') ? 'active' : '') }}}">
                 <i class="fa fa-user-plus nav-icon"></i>
                 <p>{{ __('users.add') }}</p>
               </a>
@@ -59,7 +59,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a id="createRole" href="{{{ url('/backend/roles/create') }}}" class="nav-link {{{ (Request::is('backend/roles/create') ? 'active' : '') }}}">
+              <a  href="{{{ url('/backend/roles/create') }}}" id="createRole" class="nav-link {{{ (Request::is('backend/roles/create') ? 'active' : '') }}}">
                 <i class="fa fa-plus-square-o nav-icon"></i>
                 <p>{{ __('roles.add') }}</p>
               </a>
@@ -71,7 +71,7 @@
         <!-- Categories -->
         <li class="nav-item has-treeview {{{ (Request::is('backend/categories*') ? 'menu-open' : '') }}}">
           <a href="#" class="nav-link {{{ (Request::is('backend/categories*') ? 'active' : '') }}}">
-            <i class="nav-icon fa fa-map-signs"></i>
+            <i id="category" class="nav-icon fa fa-map-signs"></i>
             <p>{{ __('categories.categories') }}
               <i class="fa fa-angle-left right"></i>
             </p>
@@ -84,7 +84,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{{ url('/backend/categories/create') }}}" class="nav-link {{{ (Request::is('backend/categories/create') ? 'active' : '') }}}">
+              <a href="{{{ url('/backend/categories/create') }}}" id="createCategory" class="nav-link {{{ (Request::is('backend/categories/create') ? 'active' : '') }}}">
                 <i class="fa fa-plus-square-o nav-icon"></i>
                 <p>{{ __('categories.add') }}</p>
               </a>
@@ -95,7 +95,7 @@
         <!-- Places -->
         <li class="nav-item has-treeview {{{ (Request::is('backend/places*') ? 'menu-open' : '') }}}">
           <a href="#" class="nav-link {{{ (Request::is('backend/places*') ? 'active' : '') }}}">
-            <i class="nav-icon fa fa-map-marker"></i>
+            <i id="place" class="nav-icon fa fa-map-marker"></i>
             <p>
                 {{ __('places.places') }}
               <i class="fa fa-angle-left right"></i>
@@ -109,7 +109,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{{ url('/backend/places/create') }}}" class="nav-link {{{ (Request::is('backend/places/create') ? 'active' : '') }}}">
+              <a href="{{{ url('/backend/places/create') }}}" id="createPlace" class="nav-link {{{ (Request::is('backend/places/create') ? 'active' : '') }}}">
                 <i class="fa fa-plus-square-o nav-icon"></i>
                 <p>{{ __('places.add') }}</p>
               </a>
