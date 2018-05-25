@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # ativar manutencao
-php artisan down
+php artisan down --message="Upgrading Website" --retry=60
 
 # atualizar codigo
 git pull origin master

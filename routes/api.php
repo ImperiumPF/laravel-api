@@ -71,6 +71,26 @@ Route::group(['domain' => env('APP_URL_API'), 'prefix' => 'v1'], function() {
          * Visit a place
          */
         Route::get('visit/{id}', 'Admin\VisitsController@visit');
+
+        /**
+         * List all Places
+         */
+        Route::get('places', 'Admin\PlacesController@index');
+
+        /**
+         * List a Place
+         */
+        Route::get('places/{id}', 'Admin\PlacesController@show');
+
+        /**
+         * Create a Place
+         */
+        Route::post('places', 'Admin\PlacesController@store');
+
+        /**
+         * Delete a Place
+         */
+        Route::delete('places/{id}', 'Admin\PlacesController@destroy');
     });
 
     /**
@@ -81,5 +101,8 @@ Route::group(['domain' => env('APP_URL_API'), 'prefix' => 'v1'], function() {
         //
     });
 
+    /**
+     * Route used to deploy from GitHub server
+     */
     Route::post('deploy', 'UtilController@deploy');
 });

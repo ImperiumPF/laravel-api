@@ -49,22 +49,21 @@ class CategoriesController extends Controller {
      */
     public function store(Request $request)
     {
-        $rules = [
+        $this->validate($request, [
             'name' => 'required|unique:categories',
             'description' => 'required'
-        ];
-
-        $validator = \Validator::make($request->all(), $rules);
+        ]);
 
         if ($request->wantsJson()) {
             if($validator->fails())
                 return response()->json(['success'=> false, 'error'=> $validator->errors()->all()]);
         }
 
-        $category = Category::create([
-            'name' => $request->input('name'),
-            'description' => $request->input('description')
-        ]);
+        //create the new role
+        $cat = new Category();
+        $cat->name = $request->input('name');
+        $cat->description = $request->input('description');
+        $cat->save();
           
 
         if ($request->wantsJson())

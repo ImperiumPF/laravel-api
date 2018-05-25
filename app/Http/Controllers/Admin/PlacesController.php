@@ -2,8 +2,10 @@
 
 namespace Imperium\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use Storage;
 use Imperium\Models\Place;
+use Illuminate\Http\Request;
+use Imperium\Models\Images;
 use Imperium\Http\Controllers\Controller;
 
 class PlacesController extends Controller
@@ -16,9 +18,18 @@ class PlacesController extends Controller
     public function index(Request $request)
     {
         $places = Place::all();
+        //for($i = 0; $i < sizeof($places); $i++){
+        //    $places[$i]->images = Place::find($i)->images;
+        //}
+        //dd($places);
+        try {
+            $image = Place::firstOrFail()->images;
+        } catch (Exception $e) {
+        }
         $params = [
             'title' => trans('places.list'),
             'places' => $places,
+            'images' => $image
         ];
 
         // If it's an API request
@@ -29,7 +40,6 @@ class PlacesController extends Controller
         return view('admin.places.index')->with($params);
     }
 
-    //
     /**
      * Show the form for creating a new resource.
      *
@@ -56,21 +66,96 @@ class PlacesController extends Controller
             'description' => 'required',
             'price' => 'required',
             'schedule' => 'required',
-            'visitationTime' => 'required',
+            'visitationTime' => 'required|integer',
             'coordinates' => 'required',
+            //'images' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            //'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg'
             'images' => 'required'
         ]);
-        $places = Place::create([
+
+        if ($request->wantsJson()) {
+            if($validator->fails())
+                return response()->json(['success'=> false, 'error'=> $validator->errors()->all()]);
+        }
+        
+        //dd($request->all(), $request->hasfile('images'));
+        if($request->hasfile('images'))
+        {
+            foreach($request->file('images') as $image)
+            {
+                $newname = time().'.'.md5($image->getClientOriginalName()).'.'.$image->getClientOriginalExtension();
+                $image->storeAs('public/storage', $newname);
+                $path = Storage::url($newname);
+            }
+
+        } else {
+            $newname = 'default.png';
+        }
+
+        $place = Place::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'price' => $request->input('price'),
             'schedule' => $request->input('schedule'),
             'visitationTime' => $request->input('visitationTime'),
+            'points' => 100,
             'coordinates' => $request->input('coordinates'),
-            'images' => $request->input('images')
+            'rating' => 3
         ]);
 
-        return redirect()->route('places.index')->with('success', trans('places.created', ['name' => $places->name]));
+
+        // Insert images
+        if($request->hasfile('images'))
+        {
+            foreach($request->file('images') as $image)
+            {
+                $newname = time().'.'.md5($image->getClientOriginalName()).'.'.$image->getClientOriginalExtension();
+                Images::insert([
+                    'place_id' => $place->id,
+                    'filename' => $newname
+                ]);
+            }
+        }
+        
+
+        if ($request->wantsJson())
+            return response()->json(['success'=> true, 'message'=> trans('categories.created', ['name' => $place->name])]);
+
+        return redirect()->route('places.index')->with('success', trans('places.created', ['name' => $place->name]));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        try
+        {
+            $place = Place::findOrFail($id);
+            $images = Place::find($id)->images;
+
+            foreach ($images as $image) {
+                unset($image['id']);
+                unset($image['place_id']);
+                unset($image['created_at']);
+                unset($image['updated_at']);
+            }
+
+            //unset($images[9]['id']);
+
+            $place->images = $images;
+            return response()->json(['success'=> true, 'message'=> $place]);
+        }
+        catch (ModelNotFoundException $ex) 
+        {
+            if ($ex instanceof ModelNotFoundException)
+            {
+                return response()->json(['success'=> false, 'message'=> trans('places.notFound')]);
+            }
+        }
     }
 
     /**

@@ -15,7 +15,7 @@
       <div class="card-header">
         <h3 class="card-title">{{ $title }}</h3>
       </div>
-      <form method="post" role="form" action="{{ route('places.store') }}" enctype="multipart/form-data">
+      <form method="POST" role="form" action="{{ route('places.store') }}" enctype="multipart/form-data">
         <div class="card-body">
           <!-- Name -->
           <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -66,13 +66,26 @@
             @endif
           </div>
           <!-- Images -->
-          <div class="form-group{{ $errors->has('images') ? ' has-error' : '' }}">
-            <label for="images">{{ __('places.images') }}</label>
-            <input type="file" class="form-control" id="images" name="images" placeholder="{{ __('places.Eimages') }}"> 
-            @if ($errors->has('images'))
-                <p class="text-danger">{{ $errors->first('images') }}</p>
-            @endif
-          </div>
+            <div class="form-group{{ $errors->has('images') ? ' has-error' : '' }}">
+              <label for="images">{{ __('places.images') }}</label>
+              <div class="input-group increment">
+                <input type="file" class="form-control" id="images" name="images[]" placeholder="{{ __('places.Eimages') }}"> 
+                <span class="input-group-append">
+                  <button class="btn btn-primary" type="button">Add</button>
+                </span>
+              </div>
+              <div class="clone hide">
+                  <div class="input-group">
+                      <input type="file" class="form-control" id="images" name="images[]" placeholder="{{ __('places.Eimages') }}"> 
+                      <span class="input-group-append">
+                        <button class="btn btn-danger" type="button">Remove</button>
+                      </span>
+                    </div>
+              </div>
+              @if ($errors->has('images'))
+                  <p class="text-danger">{{ $errors->first('images') }}</p>
+              @endif
+            </div>
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
@@ -86,4 +99,20 @@
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+@endsection
+
+@section('scripts')
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".btn-primary").click(function(){ 
+        var html = $(".clone").html();
+        $(".increment").after(html);
+    });
+
+    $("body").on("click",".btn-danger",function(){ 
+        $(this).parents(".input-group").remove();
+    });
+
+  });
+</script>
 @endsection

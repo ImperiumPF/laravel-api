@@ -23,7 +23,6 @@ class CreatePlacesTable extends Migration
             $table->integer('points')->default(100);
             $table->string('coordinates');
             $table->integer('rating')->default(3);
-            $table->string('images');
             $table->timestamps();
             
         });

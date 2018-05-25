@@ -23,4 +23,12 @@ class Category extends Model
     protected $guarded = ['id', 'created_at', 'update_at'];
 
     protected $table = 'categories';
+
+    /**
+     * Many places have many Categories
+     */
+    public function places()
+    {
+        return $this->belongsToMany('Imperium\Models\Place');
+    }
 }

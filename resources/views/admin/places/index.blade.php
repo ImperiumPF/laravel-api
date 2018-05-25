@@ -18,7 +18,7 @@
                 <table class="table table-bordered table-hover" data-toggle="dataTable" data-form="deleteForm">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th></th>
                             <th>{{ __('places.name') }}</th>
                             <th>{{ __('places.desc') }}</th>
                             <th>{{ __('places.price') }}</th>
@@ -27,7 +27,6 @@
                             <th>{{ __('places.coordinates') }}</th>
                             <th>{{ __('places.points') }}</th>
                             <th>{{ __('places.rating') }}</th>
-                            <th>{{ __('places.images') }}</th>
                             <th>{{ __('places.options') }}</th>
                         </tr>
                     </thead>
@@ -35,7 +34,7 @@
                         @if(count($places)) 
                             @foreach ($places as $row)
                             <tr>
-                                <td>{{$row->id}}</td>
+                                <td><img src="{{ asset('storage/storage/'.$images['0']->filename) }}" height="60px" width="60px"></td>
                                 <td>{{$row->name}}</td>
                                 <td>{{$row->description}}</td>
                                 <td>{{$row->price}}</td>
@@ -44,7 +43,7 @@
                                 <td>{{$row->coordinates}}</td>
                                 <td>{{$row->points}}</td>
                                 <td>{{$row->rating}}</td>
-                                <td>{{$row->images}}</td>
+                                
                                 <td>
                                     <a href="{{ route('places.edit', ['id' => $row->id]) }}" id="{{$row->id}}" class="btn btn-info btn-xs">
                                         <i class="fa fa-pencil" title="Edit"></i>
