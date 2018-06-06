@@ -17,6 +17,17 @@
                                 <img src="{{ asset('/assets/images/logo-white.png') }}" alt="Imperium">
                             </div>
                         </div>
+						
+						<!-- This needs to be fixed -->  
+						@if ($errors->has('email'))
+						<div class="form-group has-danger">
+							<span  id="error" type="error"  class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="error" >
+							<span class="invalid-feedback">
+								<strong>{{ $errors->first('email') }}</strong>
+							</span>
+						</div>
+                        @endif
+
                         <div class="content">
                             <div class="input-group form-group-no-border input-lg">
                                 <span class="input-group-addon">
@@ -24,14 +35,9 @@
                                 </span>
                                 <input id="email" type="email" placeholder="{{ __('E-Mail Address') }}" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
                                 
-                                <!-- This needs to be fixed -->
-                                        @if ($errors->has('email'))
-                                            <span class="invalid-feedback">
-                                                <strong>{{ $errors->first('email') }}</strong>
-                                            </span>
-                                        @endif
-                                    
+                                           
                             </div>
+										
                             <div class="input-group form-group-no-border input-lg">
                                 <span class="input-group-addon">
                                     <i class="now-ui-icons text_caps-small"></i>
